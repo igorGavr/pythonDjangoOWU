@@ -19,8 +19,5 @@ from django.urls import path
 from users.views import UserListCreateView, UserRetrieveUpdateDestroyView
 
 urlpatterns = [
-    # path('users', UsersView.as_view()),
-    # path('users/<int:primery_key>', UserTestView.as_view())
-    path('users', UserListCreateView.as_view()),
-    path('users/<int:pk>', UserRetrieveUpdateDestroyView.as_view())
+
 ]
