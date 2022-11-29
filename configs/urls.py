@@ -19,5 +19,5 @@ from django.urls import path
 from users.views import UserListCreateView, UserRetrieveUpdateDestroyView
 
 urlpatterns = [
-
+    'sd'
 ]
