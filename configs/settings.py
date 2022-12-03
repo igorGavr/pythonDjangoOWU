@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-5=e96a#c=8dsufqsj0^p=_d4kz2k#@216vsga5vp*!c&&%leb&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:4200",
+]
 
 
 # Application definition
@@ -34,14 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
+    'corsheaders',
 
     # my_apps
-    'apps.cars'
+    'apps.cars',
+    'apps.auto_parks'
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
 
