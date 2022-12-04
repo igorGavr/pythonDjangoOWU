@@ -15,6 +15,11 @@ class CarModel(models.Model):
     seats = models.IntegerField()
     body = models.CharField(max_length=20, blank=True)
     engine_volume = models.FloatField()
+    # прописуємо до якої моделі ми привязуємося,
+    # при видаленні auto_park -
+    #   - CASCADE - видаляються всі машини
+    #   - SET_DEFAULT(...) - виставляємо щось по дефолту
+    #   - PROTECT - не дозволяє видаляти поки є машини
     auto_park = models.ForeignKey(AutoParkModel, on_delete=models.CASCADE, related_name='cars')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

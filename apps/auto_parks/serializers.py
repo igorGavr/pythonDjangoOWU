@@ -5,6 +5,7 @@ from ..cars.serializers import CarSerializer
 
 
 class AutoParkSerializer(ModelSerializer):
+    # привязуємо до певного автопарку всі його машини
     cars = CarSerializer(many=True, read_only=True)
     class Meta:
         model = AutoParkModel
