@@ -10,10 +10,10 @@ class CarListCreateView(ListAPIView):
     # валідація даних та вивід
     serializer_class = CarSerializer
     # authentication_classes = (JWTAuthentication,)
-    # # дозволяємо робити запити тільки залогіненим юзерам
+    # дозволяємо робити запити тільки залогіненим юзерам
     # permission_classes = (IsAuthenticated,)
     # дозволяємо робити запити всім юзерам
-    # permission_classes = (AllowAny,)
+    permission_classes = (AllowAny,)
 
 
     def get_queryset(self):
