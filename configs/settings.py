@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
+from .extra_conf import *
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,9 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "http://localhost:3000",
     "http://127.0.0.1:4200",
+    "127.0.0.1"
 ]
-
-
+# вказуємо що ми будемо використовувати саме наш кастомний UserModel
+AUTH_USER_MODEL = 'users.UserModel'
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,8 +41,10 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # my_apps
+    'apps.users',
     'apps.cars',
-    'apps.auto_parks'
+    'apps.auto_parks',
+
 
 ]
 
@@ -129,8 +132,3 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 APPEND_SLASH = False
 
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
-    ],
-}
