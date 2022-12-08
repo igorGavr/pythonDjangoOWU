@@ -1,6 +1,6 @@
 from django.db import models
 from django.core import validators as V
-
+from .managers import CarManager
 from apps.auto_parks.models import AutoParkModel
 
 
@@ -18,3 +18,10 @@ class CarModel(models.Model):
     auto_park = models.ForeignKey(AutoParkModel, on_delete=models.CASCADE, related_name='cars')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    # 1 variant
+    # objects = CarManager()
+
+    # 2 variant
+    # objects = models.Manager()
+    # my_func = CarManager()

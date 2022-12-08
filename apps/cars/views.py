@@ -220,7 +220,12 @@ class CarListCreateView(ListAPIView):
     # IsAuthenticatedOrReadOnly - записувати не має права , а читати має право
     def get_queryset(self):
         query = self.request.query_params.dict()
+        # 1 variant ->
+        # queryset = CarModel.objects.lt_seats(3)
         queryset = super().get_queryset()
+
+        # 2 variant -> тут можемо звернутися до нашого методу з apps.cars.managers
+        # queryset = CarModel.my_func.lt_seats(3)
 
         year = query.get('lt_year')
         if year:

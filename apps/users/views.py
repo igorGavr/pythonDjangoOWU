@@ -1,8 +1,8 @@
-from rest_framework.generics import CreateAPIView, ListCreateAPIView, GenericAPIView
+from rest_framework.generics import CreateAPIView, ListCreateAPIView, GenericAPIView, UpdateAPIView
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer
+from .serializers import UserSerializer, AvatarSerializer
 from .permissions import IsSuperUser
 from rest_framework.permissions import IsAdminUser, AllowAny
 from abc import ABC, abstractmethod
@@ -94,3 +94,13 @@ class AutoParkListCreateView(GenericAPIView):
         serializer.save(user=user)
         serializer = UserSerializer(user)
         return Response(serializer.data, status.HTTP_201_CREATED)
+
+class AddAvatarView(UpdateAPIView):
+    serializer_class = AvatarSerializer
+    http_method_names = ('patch',)
+
+    # переоприділяємо метод який поверне мені профайл залогованого юзера,
+    # і цей профайл ми будемо змінювати
+    def get_object(self):
+        return self.request.user.profile
+
