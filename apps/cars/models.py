@@ -1,6 +1,7 @@
 from django.db import models
 from django.core import validators as V
 from .managers import CarManager
+from .services import upload_car_photo
 from apps.auto_parks.models import AutoParkModel
 
 
@@ -25,3 +26,10 @@ class CarModel(models.Model):
     # 2 variant
     # objects = models.Manager()
     # my_func = CarManager()
+
+class CarPhotoModel(models.Model):
+    class Meta:
+        db_table = 'cars_photo'
+
+    photo = models.ImageField(upload_to=upload_car_photo)
+    car = models.ForeignKey(CarModel, on_delete=models.CASCADE, related_name='photos')

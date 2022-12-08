@@ -7,7 +7,7 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveMode
     DestroyModelMixin
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly, IsAdminUser
-from .serializers import CarSerializer
+from .serializers import CarSerializer, CarPhotoSerializer
 from .models import CarModel
 
 
@@ -243,3 +243,17 @@ class CarListCreateView(ListAPIView):
 class CarRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = CarModel.objects.all()
     serializer_class = CarSerializer
+
+
+class AddCarPhotoView(GenericAPIView):
+    queryset = CarModel.objects.all()
+
+    def post(self, *args, **kwargs):
+        files = self.request.FILES
+        car = self.get_object()
+        for key in files:
+            serializer = CarPhotoSerializer(data={'photo':files[key]})
+            serializer.is_valid(raise_exception=True)
+            serializer.save(car=car)
+        serializer = CarSerializer(car)
+        return Response(serializer.data, status.HTTP_201_CREATED)
