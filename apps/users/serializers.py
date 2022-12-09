@@ -4,6 +4,7 @@ from typing import Type
 from django.contrib.auth import get_user_model
 from apps.users.models import UserModel as User
 from .models import ProfileModel
+from core.services.email_services import EmailService
 from django.db import transaction
 
 
@@ -38,6 +39,8 @@ class UserSerializer(ModelSerializer):
         profile = validated_data.pop('profile')
         user = UserModel.objects.create_user(**validated_data)
         ProfileModel.objects.create(**profile, user=user)
+        # відправляємо лист
+        EmailService.register_email(user)
         return user
 
 

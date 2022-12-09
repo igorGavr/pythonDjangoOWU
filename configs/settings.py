@@ -20,10 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5=e96a#c=8dsufqsj0^p=_d4kz2k#@216vsga5vp*!c&&%leb&'
-
+SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG') =='True'
 
 ALLOWED_HOSTS = [
     "http://localhost:3000",
@@ -39,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
     'corsheaders',
+    'rest_framework_simplejwt.token_blacklist',
 
     # my_apps
     'apps.users',
@@ -59,7 +59,7 @@ ROOT_URLCONF = 'configs.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'configs.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'my_db',
-        'USER': 'root',
-        'PASSWORD': 'rootroot',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT')
     }
 }
 
