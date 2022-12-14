@@ -1,5 +1,5 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from apps.users.permissions import IsSuperUser
 from .models import SushiModel
 from .serializers import SushiSerializer
@@ -12,10 +12,10 @@ class SushiListCreateView(ListCreateAPIView):
     def get_permissions(self):
         if self.request.method == 'GET':
             return AllowAny(),
-        return IsSuperUser(),
+        return IsAdminUser(),
 
 
 class SushiRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     queryset = SushiModel.objects.all()
     serializer_class = SushiSerializer
-    permission_classes = (IsSuperUser,)
+    permission_classes = (IsAdminUser,)
