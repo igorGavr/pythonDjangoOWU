@@ -29,4 +29,4 @@ class EmailService:
     def recovery_password_by_email(cls, user):
         token = JWTService.create_token(user, RecoveryToken)
         url = f'http://localhost:3000/recovery/{token}'
-        cls.__send_email(user.email, 'recovery', {'url':url}, 'Recovery Password')
+        cls.__send_email(user.email, 'recovery.html', {'url':url}, 'Recovery Password')
