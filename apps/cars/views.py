@@ -7,6 +7,8 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveMode
     DestroyModelMixin
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly, IsAdminUser
+
+from .filters import CarFilter
 from .serializers import CarSerializer, CarPhotoSerializer
 from .models import CarModel
 
@@ -214,6 +216,7 @@ class CarListCreateView(ListAPIView):
     queryset = CarModel.objects.all()
     serializer_class = CarSerializer
     permission_classes = (AllowAny,)
+    filterset_class = CarFilter
 
     # authentication_classes = (JWTAuthentication,)
     # IsAuthenticated - доступ тільки залогіненим юзерам
