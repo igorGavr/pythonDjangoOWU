@@ -17,3 +17,10 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
     objects = UserManager()
+
+
+class BasketModel(models.Model):
+    class Meta:
+        db_table = 'basket'
+
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='basket')

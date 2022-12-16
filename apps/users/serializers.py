@@ -4,13 +4,23 @@ from django.contrib.auth import get_user_model
 from apps.users.models import UserModel as User
 
 UserModel: Type[User] = get_user_model()
+from .models import BasketModel
+
+
+class BasketSerializer(ModelSerializer):
+    class Meta:
+        model = BasketModel
+        fields = '__all__'
 
 
 class UserSerializer(ModelSerializer):
+    basket = BasketSerializer()
+
     class Meta:
         model = UserModel
         fields = (
-        'id', 'email', 'is_active', 'password', 'is_staff', 'is_superuser', 'created_at', 'updated_at', 'last_login')
+            'id', 'email', 'is_active', 'basket', 'password', 'is_staff', 'is_superuser', 'created_at', 'updated_at',
+            'last_login')
         read_only_fields = ('id', 'is_active', 'is_staff', 'is_superuser', 'created_at', 'updated_at', 'last_login')
         extra_kwargs = {
             'password': {
