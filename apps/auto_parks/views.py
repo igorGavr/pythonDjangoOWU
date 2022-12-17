@@ -7,11 +7,14 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from apps.cars.models import CarModel
 from core.pagination.page_pagination import PagePagination
+from .filters import AutoParkFilters
+
 
 class AutoParkListCreateView(ListAPIView):
     queryset = AutoParkModel.objects.all()
     serializer_class = AutoParkSerializer
     pagination_class = PagePagination
+    filterset_class = AutoParkFilters
 
 
 class CarListCreateView(GenericAPIView):
