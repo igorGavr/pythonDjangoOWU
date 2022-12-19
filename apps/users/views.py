@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from abc import ABC, abstractmethod
 from apps.users.models import UserModel as User
 from apps.auto_parks.serializers import AutoParkSerializer
-
+from apps.auto_parks.models import AutoParkModel
 UserModel: User = get_user_model()
 
 
@@ -91,7 +91,8 @@ class AutoParkListCreateView(GenericAPIView):
         serializer = AutoParkSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         user = self.get_object()
-        serializer.save(user=user)
+        auto_park:AutoParkModel = serializer.save()
+        auto_park.users.add(user)
         serializer = UserSerializer(user)
         return Response(serializer.data, status.HTTP_201_CREATED)
 
