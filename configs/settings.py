@@ -27,6 +27,7 @@ DEBUG = os.environ.get('DEBUG') =='True'
 ALLOWED_HOSTS = [
     "http://localhost:3000",
     "http://127.0.0.1:4200",
+    "localhost",
     "127.0.0.1"
 ]
 # вказуємо що ми будемо використовувати саме наш кастомний UserModel

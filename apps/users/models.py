@@ -5,12 +5,13 @@ from apps.users.managers import UserManager
 from .enums import RegEx
 from .services import upload_avatar
 
+
 class UserModel(AbstractBaseUser, PermissionsMixin):
     class Meta:
         db_table = 'auth_user'
 
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=128,validators=[
+    password = models.CharField(max_length=128, validators=[
         V.RegexValidator(RegEx.PASSWORD.pattern, RegEx.PASSWORD.msg)])
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -32,8 +33,15 @@ class ProfileModel(models.Model):
     surname = models.CharField(max_length=20, validators=[
         V.RegexValidator(RegEx.NAME.pattern, RegEx.NAME.msg)])
     age = models.IntegerField(validators=[
-        V.MinValueValidator(18),V.MaxValueValidator(150)])
+        V.MinValueValidator(18), V.MaxValueValidator(150)])
     phone = models.CharField(max_length=10, validators=[
         V.RegexValidator(RegEx.PHONE.pattern, RegEx.PHONE.msg)])
     avatar = models.ImageField(upload_to=upload_avatar, blank=True)
     user = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='profile')
+
+
+class CartModel(models.Model):
+    class Meta:
+        db_table = 'carts'
+
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='cart')

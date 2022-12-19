@@ -78,9 +78,11 @@ class AdminToUserView(SuperUserTools):
         serializer = UserSerializer(user)
         return Response(serializer.data, status.HTTP_200_OK)
 
+
 class AutoParkListCreateView(GenericAPIView):
     def get_object(self) -> User:
         return self.request.user
+
     def get(self, *args, **kwargs):
         auto_parks = self.get_object().auto_parks
         serializer = AutoParkSerializer(auto_parks, many=True)
@@ -95,6 +97,7 @@ class AutoParkListCreateView(GenericAPIView):
         serializer = UserSerializer(user)
         return Response(serializer.data, status.HTTP_201_CREATED)
 
+
 class AddAvatarView(UpdateAPIView):
     serializer_class = AvatarSerializer
     http_method_names = ('patch',)
@@ -103,4 +106,3 @@ class AddAvatarView(UpdateAPIView):
     # і цей профайл ми будемо змінювати
     def get_object(self):
         return self.request.user.profile
-

@@ -3,6 +3,8 @@ from apps.users.models import UserModel as User
 from django.contrib.auth import get_user_model
 
 UserModel: User = get_user_model()
+
+
 class AutoParkModel(models.Model):
     class Meta:
         db_table = 'auto_park'
